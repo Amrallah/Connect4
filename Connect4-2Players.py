@@ -8,7 +8,7 @@ print (board)
 def selectColumn(player):
     if player%2!=0:
         pieceLocation = input("Player 1, in which column you want to place your piece?")
-        if validColumn(board,pieceLocation):
+        if validColumn(board,int(pieceLocation)):
             i = 1
             while (board[rowsNo - i][int(pieceLocation) - 1] != 0):
                 i += 1
@@ -18,7 +18,7 @@ def selectColumn(player):
             selectColumn(player)
     elif player%2==0:
         pieceLocation = input("Player 2, in which column you want to place your piece?")
-        if validColumn(board,pieceLocation):
+        if validColumn(board,int(pieceLocation)):
             i = 1
             while (board[rowsNo - i][int(pieceLocation) - 1] != 0):
                 i += 1
