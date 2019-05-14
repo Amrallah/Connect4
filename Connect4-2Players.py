@@ -4,6 +4,8 @@ columnsNo=7
 
 board=np.zeros((rowsNo,columnsNo))
 winFlag=False
+player1win=False
+player2win=False
 print (board)
 
 def selectColumn(player):
@@ -30,6 +32,8 @@ def selectColumn(player):
 
 def horizontalWin(array):
     global winFlag
+    global player1win
+    global player2win
     horizontal_flag_1=0
     horizontal_flag_2=0
     transposed=array.T
@@ -39,6 +43,7 @@ def horizontalWin(array):
                 horizontal_flag_1+=1
                 if horizontal_flag_1==4:
                     print("Player 1 wins")
+                    player1win=True
                     winFlag=True
                     break
             else:
@@ -48,6 +53,7 @@ def horizontalWin(array):
                 if horizontal_flag_2==4:
                     print("Player 2 wins")
                     winFlag = True
+                    player2win=True
                     break
             else:
                 horizontal_flag_2=0
@@ -61,6 +67,8 @@ def horizontalWin(array):
 
 def verticalWin(array):
     global winFlag
+    global player1win
+    global player2win
     vertical_flag_1=0
     vertical_flag_2=0
     for i in range(columnsNo):
@@ -70,6 +78,7 @@ def verticalWin(array):
                 if vertical_flag_1==4:
                     print("Player 1 wins")
                     winFlag = True
+                    player1win=True
                     break
             else:
                 vertical_flag_1=0
@@ -78,6 +87,7 @@ def verticalWin(array):
                 if vertical_flag_2==4:
                     print("Player 2 wins")
                     winFlag = True
+                    player2win=True
                     break
             else:
                 vertical_flag_2=0
@@ -91,6 +101,8 @@ def verticalWin(array):
 
 def negativeDiagonalWin(array):
     global winFlag
+    global player1win
+    global player2win
     win=False
     for i in range(columnsNo-3):
         for r in range(rowsNo-3):
@@ -98,11 +110,13 @@ def negativeDiagonalWin(array):
                 win=True
                 print("Player 1 wins")
                 winFlag = True
+                player1win=True
                 break
             elif array[r][i]==2 and array[r+1][i+1]==2 and array[r+2][i+2]==2 and array[r+3][i+3]==2:
                 win=True
                 print("Player 2 wins")
                 winFlag = True
+                player2win=True
                 break
         if win == True:
                 break
@@ -110,6 +124,8 @@ def negativeDiagonalWin(array):
 
 def positiveDiagonalWin(array):
     global winFlag
+    global player1win
+    global player2win
     win=False
     for i in range(columnsNo-3):
         for r in range(3,rowsNo):
@@ -117,11 +133,13 @@ def positiveDiagonalWin(array):
                 win=True
                 print("Player 1 wins")
                 winFlag = True
+                player1win=True
                 break
             elif array[r][i]==2 and array[r-1][i+1]==2 and array[r-2][i+2]==2 and array[r-3][i+3]==2:
                 win=True
                 print("Player 2 wins")
                 winFlag = True
+                player2win=True
                 break
         if win == True:
                 break
