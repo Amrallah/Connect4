@@ -221,19 +221,6 @@ def score_position(board, piece):
 
     return score
 
-def newBoards(board):
-    listNewBoards=[]
-    for i in range(columnsNo):
-        if(validColumn(board,i) == True ):
-            boardI=board.copy()
-            dropPiece(boardI,i)
-            print(score_position(boardI,2))
-           #print(boardI)
-            listNewBoards.append(boardI)
-            
-    print (listNewBoards)
-    return listNewBoards
-
 def newValidLocations(board):
     listNewValidLocations=[]
     for i in range(columnsNo):
