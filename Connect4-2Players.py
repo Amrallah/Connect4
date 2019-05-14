@@ -8,16 +8,24 @@ print (board)
 def selectColumn(player):
     if player%2!=0:
         pieceLocation = input("Player 1, in which column you want to place your piece?")
-        i = 1
-        while (board[rowsNo - i][int(pieceLocation) - 1] != 0):
-            i += 1
-        board[rowsNo - i][int(pieceLocation) - 1] = 1
+        if validColumn(board,pieceLocation):
+            i = 1
+            while (board[rowsNo - i][int(pieceLocation) - 1] != 0):
+                i += 1
+            board[rowsNo - i][int(pieceLocation) - 1] = 1
+        else:
+            print("Column is Full")
+            selectColumn(player)
     elif player%2==0:
         pieceLocation = input("Player 2, in which column you want to place your piece?")
-        i = 1
-        while (board[rowsNo - i][int(pieceLocation) - 1] != 0):
-            i += 1
-        board[rowsNo - i][int(pieceLocation) - 1] = 2
+        if validColumn(board,pieceLocation):
+            i = 1
+            while (board[rowsNo - i][int(pieceLocation) - 1] != 0):
+                i += 1
+            board[rowsNo - i][int(pieceLocation) - 1] = 2
+        else:
+            print("Column is Full")
+            selectColumn(player)
 
 def horizontalWin(array):
     horizontal_flag_1=0
@@ -113,7 +121,7 @@ def winningConditions(x):
     negativeDiagonalWin(x)
     positiveDiagonalWin(x)
 
-def validSpace(x):
+def foundSpace(x):
     spaceFound=False
     for i in range(columnsNo):
         for r in range(rowsNo):
@@ -122,8 +130,15 @@ def validSpace(x):
                 return spaceFound
     return spaceFound
 
+def validColumn(x,columnNumber):
+    for r in range(rowsNo):
+        if x[r][columnNumber-1]==0:
+            return True
+        else:
+            return False
+
 playerNo=1
-while(validSpace(board)):
+while(foundSpace(board)):
     selectColumn(playerNo)
     playerNo+=1
     print(board)
