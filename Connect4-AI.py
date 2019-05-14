@@ -1,6 +1,7 @@
 import numpy as np
 rowsNo=6
 columnsNo=7
+WINDOW_LENGTH = 4
 
 board=np.zeros((rowsNo,columnsNo))
 print (board)
@@ -25,7 +26,7 @@ def dropPiece(boardC,pieceLocation):
     while(boardC[rowsNo-i][int(pieceLocation)]!=0):
         i+=1
     boardC[rowsNo - i][int(pieceLocation)] = 2
-        
+
 def newBoards(board):
     listNewBoards=[]
     for i in range(columnsNo):
@@ -37,6 +38,59 @@ def newBoards(board):
             
     #print (listNewBoards)
     return listNewBoards
+    
+def evaluate_window(window, piece):
+    score = 0
+    opp_piece = 1
+    if piece == 1:
+        opp_piece = 2
+
+    if window.count(piece) == 4:
+        score += 100
+    elif window.count(piece) == 3 and window.count(0) == 1:
+        score += 5
+    elif window.count(piece) == 2 and window.count(0) == 2:
+        score += 2
+
+    if window.count(opp_piece) == 3 and window.count(0) == 1:
+        score -= 4
+
+    return score
+
+def score_position(board, piece):
+    score = 0
+
+    ## Score center column
+    center_array = [int(i) for i in list(board[:, columnsNo//2])]
+    center_count = center_array.count(piece)
+    score += center_count * 3
+
+    ## Score Horizontal
+    for r in range(rowsNo):
+        row_array = [int(i) for i in list(board[r,:])]
+        for c in range(columnsNo-3):
+            window = row_array[c:c+WINDOW_LENGTH]
+            score += evaluate_window(window, piece)
+
+    ## Score Vertical
+    for c in range(columnsNo):
+        col_array = [int(i) for i in list(board[:,c])]
+        for r in range(rowsNo-3):
+            window = col_array[r:r+WINDOW_LENGTH]
+            score += evaluate_window(window, piece)
+
+    ## Score posiive sloped diagonal
+    for r in range(rowsNo-3):
+        for c in range(columnsNo-3):
+            window = [board[r+i][c+i] for i in range(WINDOW_LENGTH)]
+            score += evaluate_window(window, piece)
+
+    for r in range(rowsNo-3):
+        for c in range(columnsNo-3):
+            window = [board[r+3-i][c+i] for i in range(WINDOW_LENGTH)]
+            score += evaluate_window(window, piece)
+
+    return score        
     
 
 def horizontalWin(array):
