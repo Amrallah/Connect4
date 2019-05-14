@@ -3,6 +3,7 @@ rowsNo=6
 columnsNo=7
 
 board=np.zeros((rowsNo,columnsNo))
+winFlag=False
 print (board)
 
 def selectColumn(player):
@@ -14,7 +15,7 @@ def selectColumn(player):
                 i += 1
             board[rowsNo - i][int(pieceLocation) - 1] = 1
         else:
-            print("Column is Full")
+            print("Invalid column")
             selectColumn(player)
     elif player%2==0:
         pieceLocation = input("Player 2, in which column you want to place your piece?")
@@ -24,10 +25,11 @@ def selectColumn(player):
                 i += 1
             board[rowsNo - i][int(pieceLocation) - 1] = 2
         else:
-            print("Column is Full")
+            print("Invalid column")
             selectColumn(player)
 
 def horizontalWin(array):
+    global winFlag
     horizontal_flag_1=0
     horizontal_flag_2=0
     transposed=array.T
@@ -37,6 +39,7 @@ def horizontalWin(array):
                 horizontal_flag_1+=1
                 if horizontal_flag_1==4:
                     print("Player 1 wins")
+                    winFlag=True
                     break
             else:
                 horizontal_flag_1=0
@@ -44,6 +47,7 @@ def horizontalWin(array):
                 horizontal_flag_2+=1
                 if horizontal_flag_2==4:
                     print("Player 2 wins")
+                    winFlag = True
                     break
             else:
                 horizontal_flag_2=0
@@ -56,6 +60,7 @@ def horizontalWin(array):
     return
 
 def verticalWin(array):
+    global winFlag
     vertical_flag_1=0
     vertical_flag_2=0
     for i in range(columnsNo):
@@ -64,6 +69,7 @@ def verticalWin(array):
                 vertical_flag_1+=1
                 if vertical_flag_1==4:
                     print("Player 1 wins")
+                    winFlag = True
                     break
             else:
                 vertical_flag_1=0
@@ -71,6 +77,7 @@ def verticalWin(array):
                 vertical_flag_2+=1
                 if vertical_flag_2==4:
                     print("Player 2 wins")
+                    winFlag = True
                     break
             else:
                 vertical_flag_2=0
@@ -83,32 +90,38 @@ def verticalWin(array):
     return
 
 def negativeDiagonalWin(array):
+    global winFlag
     win=False
     for i in range(columnsNo-3):
         for r in range(rowsNo-3):
             if array[r][i]==1 and array[r+1][i+1]==1 and array[r+2][i+2]==1 and array[r+3][i+3]==1:
                 win=True
                 print("Player 1 wins")
+                winFlag = True
                 break
             elif array[r][i]==2 and array[r+1][i+1]==2 and array[r+2][i+2]==2 and array[r+3][i+3]==2:
                 win=True
                 print("Player 2 wins")
+                winFlag = True
                 break
         if win == True:
                 break
     return
 
 def positiveDiagonalWin(array):
+    global winFlag
     win=False
     for i in range(columnsNo-3):
         for r in range(3,rowsNo):
             if array[r][i]==1 and array[r-1][i+1]==1 and array[r-2][i+2]==1 and array[r-3][i+3]==1:
                 win=True
                 print("Player 1 wins")
+                winFlag = True
                 break
             elif array[r][i]==2 and array[r-1][i+1]==2 and array[r-2][i+2]==2 and array[r-3][i+3]==2:
                 win=True
                 print("Player 2 wins")
+                winFlag = True
                 break
         if win == True:
                 break
@@ -131,6 +144,8 @@ def foundSpace(x):
     return spaceFound
 
 def validColumn(x,columnNumber):
+    if columnNumber >columnsNo:
+        return False
     for r in range(rowsNo):
         if x[r][columnNumber-1]==0:
             return True
@@ -138,8 +153,11 @@ def validColumn(x,columnNumber):
             return False
 
 playerNo=1
+
 while(foundSpace(board)):
     selectColumn(playerNo)
     playerNo+=1
     print(board)
     winningConditions(board)
+    if winFlag==True:
+        break
