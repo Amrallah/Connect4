@@ -19,6 +19,26 @@ def selectColumn(player):
             i += 1
         board[rowsNo - i][int(pieceLocation) - 1] = 2
 
+        
+def dropPiece(boardC,pieceLocation):
+    i=1
+    while(boardC[rowsNo-i][int(pieceLocation)]!=0):
+        i+=1
+    boardC[rowsNo - i][int(pieceLocation)] = 2
+        
+def newBoards(board):
+    listNewBoards=[]
+    for i in range(columnsNo):
+        if(validColumn(board,i) == True ):
+            boardI=board.copy()
+            dropPiece(boardI,i)
+           #print(boardI)
+            listNewBoards.append(boardI)
+            
+    #print (listNewBoards)
+    return listNewBoards
+    
+
 def horizontalWin(array):
     horizontal_flag_1=0
     horizontal_flag_2=0
