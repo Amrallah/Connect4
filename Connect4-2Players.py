@@ -34,6 +34,8 @@ def horizontalWin(array):
     global winFlag
     global player1win
     global player2win
+    global horizontal_flag_1
+    global horizontal_flag_2
     horizontal_flag_1=0
     horizontal_flag_2=0
     transposed=array.T
@@ -57,6 +59,8 @@ def horizontalWin(array):
                     break
             else:
                 horizontal_flag_2=0
+        horizontal_flag_1 = 0
+        horizontal_flag_2 = 0
         if horizontal_flag_1==4:
         	horizontal_flag_1=0
         	break
@@ -69,6 +73,8 @@ def verticalWin(array):
     global winFlag
     global player1win
     global player2win
+    global vertical_flag_1
+    global vertical_flag_2
     vertical_flag_1=0
     vertical_flag_2=0
     for i in range(columnsNo):
@@ -97,6 +103,8 @@ def verticalWin(array):
         elif vertical_flag_2==4:
             vertical_flag_2=0
             break
+    vertical_flag_1=0
+    vertical_flag_2=0
     return
 
 def negativeDiagonalWin(array):
