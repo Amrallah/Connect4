@@ -182,7 +182,7 @@ def evaluate_window(window, piece):
         score += 2
 
     if window.count(opp_piece) == 3 and window.count(0) == 1:
-        score -= 4 * difficulty
+        score -= 3 * difficulty
 
     return score
 
@@ -285,7 +285,7 @@ if startPlayer == 1:
             break
         col, score = minimax(board,difficulty,-math.inf,math.inf,True)
         dropPiece(board,col,2)
-        print(col,"AI score: ",score)
+        print(col+1,"AI score: ",score)
         print(board)
         winningConditions(board)
         if winFlag==True:
@@ -295,7 +295,7 @@ else:
         col, score = minimax(board,difficulty,-math.inf,math.inf,True)
         dropPiece(board,col,2)
         winningConditions(board)
-        print(col,"AI score: ",score)
+        print(col+1,"AI score: ",score)
         print(board)
         if winFlag==True:
             break
