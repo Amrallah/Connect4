@@ -275,17 +275,17 @@ def minimax(board,depth,alpha,beta,MaxPlayer):
     else:
         value=math.inf
         colToPlay=0
-    for i in newLocations:
-        newBoard=board.copy()
-        dropPiece(newBoard,i,1)
-        _,score = minimax(newBoard,depth-1,alpha,beta,True)
-        if score<value:
-            colToPlay=i
-            value=score
-        beta=min(beta,value)
-        if beta < alpha :
-            break
-    return colToPlay,value
+        for i in newLocations:
+            newBoard=board.copy()
+            dropPiece(newBoard,i,1)
+            _,score = minimax(newBoard,depth-1,alpha,beta,True)
+            if score<value:
+                colToPlay=i
+                value=score
+            beta=min(beta,value)
+            if beta < alpha :
+                break
+        return colToPlay,value
 
 startPlayer = int(input("Type 1 for player to start or any other number for AI to start the game!"))
 difficulty = int(input("Pick difficulty level from 1 to 8 (Picking anything above 4 might take some time for AI to play)"))
