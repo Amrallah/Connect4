@@ -290,6 +290,7 @@ if startPlayer == 1:
         winningConditions(board)
         if winFlag==True:
             print(board)
+            input("Press any key to exit")
             break
         col, score = minimax(board,difficulty,-math.inf,math.inf,True)
         dropPiece(board,col,2)
@@ -297,6 +298,7 @@ if startPlayer == 1:
         print(board)
         winningConditions(board)
         if winFlag==True:
+            input("Press any key to exit")
             break
 else:
     while(validSpace(board)):
@@ -306,9 +308,11 @@ else:
         print(col+1,"AI score: ",score)
         print(board)
         if winFlag==True:
+            input("Press any key to exit")
             break
         selectColumn(1)
         winningConditions(board)
         if winFlag==True:
             print(board)
+            input("Press any key to exit")
             break
