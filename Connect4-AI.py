@@ -13,13 +13,18 @@ print (board)
 def selectColumn(player):
     pieceLocation = input("In which column you want to place your piece?")
     i=1
-    while(board[rowsNo-i][int(pieceLocation)-1]!=0):
-        i+=1
-    if player%2!=0:
-        board[rowsNo - i][int(pieceLocation) - 1] = 1
-    elif player%2==0:
-        board[rowsNo - i][int(pieceLocation) - 1] = 2
-    return pieceLocation
+    if validColumn(board,int(pieceLocation)-1):
+        while(board[rowsNo-i][int(pieceLocation)-1]!=0):
+            i+=1
+        if player%2!=0 :
+            board[rowsNo - i][int(pieceLocation) - 1] = 1
+        elif player%2==0 :
+            board[rowsNo - i][int(pieceLocation) - 1] = 2
+        return pieceLocation
+    else:
+        print("Column Full")
+        selectColumn(player)
+        
 
 def dropPiece(board,pieceLocation,piece):
     i=1
@@ -31,8 +36,8 @@ def validColumn(x,columnNumber):
     for r in range(rowsNo):
         if x[r][columnNumber]==0:
             return True
-        else:
-            return False
+        
+    return False
 
 def horizontalWin(array):
     global winFlag
